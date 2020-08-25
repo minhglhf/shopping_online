@@ -21,6 +21,13 @@ Route::get('/home_page', function () {
     return view('home_page');
 });
 
+Route::prefix('categories')->group(function () {
+    Route::get('/create', [
+        'as' => 'categories.create',
+        'uses' => 'CategoryController@create',
+    ]);
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
