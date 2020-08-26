@@ -30,6 +30,8 @@
                                 <label>Chon danh muc cha</label>
                                 <select class="form-control">
                                     <option value="0">chon danh muc cha</option>
+                                    {!! $category !!}
+
                                 </select>
                             </div>
 
