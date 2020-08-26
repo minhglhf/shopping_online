@@ -6,36 +6,40 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Category;
 use Illuminate\Support\Facades\DB;
+use App\Components\Recursive;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
-    private $showCategory;
+    private $category;
 
-    public function __construct()
+    public function __construct(Category $category)
     {
-        $this->showCategory = '';
+        $this->category = $category;
     }
 
-    public function index(){
+    public function index()
+    {
         return view('category.index');
 
     }
 
-    public function create(){
-        //
-        $category = $this->categoryRecursive(0);
+    public function create()
+    {
+        $data = $this->category->all();
+        $recursive = new Recursive($data);
+        $category = $recursive->categoryRecursive();
         return view('category.add', compact('category'));
     }
 
-    public function categoryRecursive($id){
-        $data = Category::all();
-        foreach($data as $value){
-            if($value->parent_id == $id){
-                $this->showCategory .= '<option>' . $value->name . '</option>';
-                $this->categoryRecursive($value->id);
-            }
-        }
+    public function store(Request $request)
+    {
+        $this->category->create([
+            'name' =>  $request->name,
+            'parent_id' => $request->parent_id,
+            'slug' => Str::slug($request->name),
+        ]);
 
-        return $this->showCategory;
+        return redirect()->route('categories.index');
     }
 }

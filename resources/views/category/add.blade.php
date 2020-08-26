@@ -20,15 +20,18 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-6">
-                        <form>
+                        <form action="{{ route('categories.store') }}" method="post">
+                            @csrf
                             <div class="form-group">
                                 <label>Ten Danh Muc</label>
-                                <input type="email" class="form-control" placeholder="Nhap ten danh muc">
+                                <input type="text" class="form-control"
+                                       name="name"
+                                       placeholder="Nhap ten danh muc">
                             </div>
 
                             <div class="form-group">
                                 <label>Chon danh muc cha</label>
-                                <select class="form-control">
+                                <select class="form-control" name="parent_id">
                                     <option value="0">chon danh muc cha</option>
                                     {!! $category !!}
 

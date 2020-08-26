@@ -17,9 +17,9 @@ class Category extends Model
 //     *
 //     * @var array
 //     */
-//    protected $fillable = [
-//        'name', 'parent_id', 'id', 'slug',
-//    ];
+    protected $fillable = [
+        'name', 'parent_id', 'slug'
+    ];
 //
 //    /**
 //     * The attributes that should be hidden for arrays.
