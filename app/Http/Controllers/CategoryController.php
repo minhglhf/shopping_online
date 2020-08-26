@@ -20,8 +20,8 @@ class CategoryController extends Controller
 
     public function index()
     {
-        return view('category.index');
-
+        $categories = $this->category->latest()->paginate(5);
+        return view('category.index', compact('categories'));
     }
 
     public function create()
@@ -35,11 +35,22 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $this->category->create([
-            'name' =>  $request->name,
+            'name' => $request->name,
             'parent_id' => $request->parent_id,
             'slug' => Str::slug($request->name),
         ]);
 
         return redirect()->route('categories.index');
     }
+
+    public function edit($id)
+    {
+        echo 'edit';
+    }
+
+    public function delete($id)
+    {
+        echo 'delete';
+    }
+
 }
