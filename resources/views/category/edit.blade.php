@@ -13,19 +13,20 @@
 @section('content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        @include('partials.content-header', ['name' => 'category', 'key' => 'Add'])
+    @include('partials.content-header', ['name' => 'category', 'key' => 'Edit'])
 
-        <!-- Main content -->
+    <!-- Main content -->
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-6">
-                        <form action="{{ route('categories.store') }}" method="post">
+                        <form action="{{ route('categories.update', ['id' => $category->id]) }}" method="post">
                             @csrf
                             <div class="form-group">
                                 <label>Ten Danh Muc</label>
                                 <input type="text" class="form-control"
                                        name="name"
+                                       value="{{ $category->name }}"
                                        placeholder="Nhap ten danh muc">
                             </div>
 
