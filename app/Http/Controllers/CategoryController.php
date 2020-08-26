@@ -53,7 +53,7 @@ class CategoryController extends Controller
     {
         $category = $this->category->find($id);
         $optionHtml = $this->getCategory($category->parent_id);
-        return view('category.edit', compact('category','optionHtml'));
+        return view('category.edit', compact('category', 'optionHtml'));
     }
 
     public function update($id, Request $request)
@@ -69,7 +69,8 @@ class CategoryController extends Controller
 
     public function delete($id)
     {
-        echo 'delete';
+        $this->category->find($id)->delete();
+        return redirect()->route('categories.index');
     }
 
 }

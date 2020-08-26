@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 
 class Category extends Model
@@ -17,6 +18,8 @@ class Category extends Model
 //     *
 //     * @var array
 //     */
+    use SoftDeletes;
+
     protected $fillable = [
         'name', 'parent_id', 'slug'
     ];
