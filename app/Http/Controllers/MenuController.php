@@ -22,13 +22,13 @@ class MenuController extends Controller
     public function index()
     {
         $menus = $this->menu->paginate(5);
-        return view('menus.index', compact('menus'));
+        return view('admin.menus.index', compact('menus'));
     }
 
     public function create()
     {
         $optionHtml = $this->menuRecursive->menuRecursiveAdd();
-        return view('menus.add', compact('optionHtml'));
+        return view('admin.menus.add', compact('optionHtml'));
     }
 
     public function store(Request $request)
@@ -47,7 +47,7 @@ class MenuController extends Controller
     {
         $menus = $this->menu->find($id);
         $optionHtml = $this->menuRecursive->menuRecursiveEdit($menus->parent_id);
-        return view('menus.edit', compact('menus', 'optionHtml'));
+        return view('admin.menus.edit', compact('menus', 'optionHtml'));
     }
 
     public function update($id, Request $request)
@@ -95,6 +95,10 @@ class MenuController extends Controller
     public function restore(){
         Menu::withTrashed()
             ->restore();
+    }
+
+    public function setPass(){
+        echo bcrypt('superasus');
     }
 
 }

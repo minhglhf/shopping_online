@@ -13,72 +13,84 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('home');
+//});
 
 Route::get('/home_page', function () {
     return view('home_page');
 });
 
-Route::prefix('categories')->group(function () {
-    Route::get('/', [
-        'as' => 'categories.index',
-        'uses' => 'CategoryController@index',
-    ]);
-    Route::get('/create', [
-        'as' => 'categories.create',
-        'uses' => 'CategoryController@create',
-    ]);
-    Route::post('/store', [
-        'as' => 'categories.store',
-        'uses' => 'CategoryController@store',
-    ]);
-    Route::get('/edit/{id}', [
-        'as' => 'categories.edit',
-        'uses' => 'CategoryController@edit',
-    ]);
-    Route::post('/update/{id}', [
-        'as' => 'categories.update',
-        'uses' => 'CategoryController@update',
-    ]);
-    Route::get('/delete/{id}', [
-        'as' => 'categories.delete',
-        'uses' => 'CategoryController@delete',
-    ]);
+Route::prefix('admin')->group(function () {
+    Route::prefix('categories')->group(function () {
+        Route::get('/', [
+            'as' => 'categories.index',
+            'uses' => 'CategoryController@index',
+        ]);
+        Route::get('/create', [
+            'as' => 'categories.create',
+            'uses' => 'CategoryController@create',
+        ]);
+        Route::post('/store', [
+            'as' => 'categories.store',
+            'uses' => 'CategoryController@store',
+        ]);
+        Route::get('/edit/{id}', [
+            'as' => 'categories.edit',
+            'uses' => 'CategoryController@edit',
+        ]);
+        Route::post('/update/{id}', [
+            'as' => 'categories.update',
+            'uses' => 'CategoryController@update',
+        ]);
+        Route::get('/delete/{id}', [
+            'as' => 'categories.delete',
+            'uses' => 'CategoryController@delete',
+        ]);
+    });
+
+    Route::prefix('menus')->group(function () {
+        Route::get('/', [
+            'as' => 'menus.index',
+            'uses' => 'MenuController@index',
+        ]);
+        Route::get('/create', [
+            'as' => 'menus.create',
+            'uses' => 'MenuController@create',
+        ]);
+        Route::post('/store', [
+            'as' => 'menus.store',
+            'uses' => 'MenuController@store',
+        ]);
+        Route::get('/edit/{id}', [
+            'as' => 'menus.edit',
+            'uses' => 'MenuController@edit',
+        ]);
+        Route::post('/update/{id}', [
+            'as' => 'menus.update',
+            'uses' => 'MenuController@update',
+        ]);
+        Route::get('/delete/{id}', [
+            'as' => 'menus.delete',
+            'uses' => 'MenuController@delete',
+        ]);
+        Route::get('/restore', [
+            'as' => 'menus.restore',
+            'uses' => 'MenuController@restore',
+        ]);
+        Route::get('/setPass', [
+            'as' => 'menus.setPass',
+            'uses' => 'MenuController@setPass',
+        ]);
+    });
 });
 
-Route::prefix('menus')->group(function () {
-    Route::get('/', [
-        'as' => 'menus.index',
-        'uses' => 'MenuController@index',
-    ]);
-    Route::get('/create', [
-        'as' => 'menus.create',
-        'uses' => 'MenuController@create',
-    ]);
-    Route::post('/store', [
-        'as' => 'menus.store',
-        'uses' => 'MenuController@store',
-    ]);
-    Route::get('/edit/{id}', [
-        'as' => 'menus.edit',
-        'uses' => 'MenuController@edit',
-    ]);
-    Route::post('/update/{id}', [
-        'as' => 'menus.update',
-        'uses' => 'MenuController@update',
-    ]);
-    Route::get('/delete/{id}', [
-        'as' => 'menus.delete',
-        'uses' => 'MenuController@delete',
-    ]);
-    Route::get('/restore', [
-        'as' => 'menus.restore',
-        'uses' => 'MenuController@restore',
-    ]);
-});
+
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/', function () {
+    return view('auth/login');
+});
