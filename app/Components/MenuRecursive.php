@@ -13,6 +13,7 @@ class MenuRecursive
     {
         // $this->data = $data;
         $this->html = '';
+        $this->list = [];
     }
 
     public function menuRecursiveAdd($parentId = 0, $text = '')
@@ -24,6 +25,19 @@ class MenuRecursive
         }
 
         return $this->html;
+    }
+
+    private $list = [];
+    public function getChild($parentId = 0, $text = '')
+    {
+        $data = Menu::where('parent_id', $parentId)->get();
+
+        foreach ($data as $value) {
+            $this->list[] = $value;
+            $this->getChild($value->id, $text . '-');
+        }
+
+        return $this->list;
     }
 
     public function menuRecursiveEdit($parentIdMenuEdit, $parentId = 0, $text = '')

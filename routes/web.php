@@ -73,6 +73,10 @@ Route::prefix('menus')->group(function () {
         'as' => 'menus.delete',
         'uses' => 'MenuController@delete',
     ]);
+    Route::get('/restore', [
+        'as' => 'menus.restore',
+        'uses' => 'MenuController@restore',
+    ]);
 });
 
 Auth::routes();

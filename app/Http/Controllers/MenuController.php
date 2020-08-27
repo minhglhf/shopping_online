@@ -19,17 +19,20 @@ class MenuController extends Controller
     }
 
 
-    public function index(){
+    public function index()
+    {
         $menus = $this->menu->paginate(5);
         return view('menus.index', compact('menus'));
     }
 
-    public function create(){
+    public function create()
+    {
         $optionHtml = $this->menuRecursive->menuRecursiveAdd();
         return view('menus.add', compact('optionHtml'));
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $this->menu->create([
             'name' => $request->name,
             'parent_id' => $request->parent_id,
@@ -44,7 +47,7 @@ class MenuController extends Controller
     {
         $menus = $this->menu->find($id);
         $optionHtml = $this->menuRecursive->menuRecursiveEdit($menus->parent_id);
-        return view('menus.edit',compact('menus', 'optionHtml'));
+        return view('menus.edit', compact('menus', 'optionHtml'));
     }
 
     public function update($id, Request $request)
@@ -60,9 +63,38 @@ class MenuController extends Controller
 
     public function delete($id)
     {
+        $data = $this->menuRecursive->getChild($id);
+
+        foreach ($data as $value) {
+            $this->menu->find($value->id)->delete();
+        }
         $this->menu->find($id)->delete();
+
         return redirect()->route('menus.index');
     }
 
+
+//    public function deleteChildIfDeleteParent($parentId = 0, $text = ''){
+////        $data = Menu::where('parent_id', $parentId)->get();
+////        foreach ($data as $value){
+////            $this->list .= $value->id . '--';
+////            $this->deleteChildIfDeleteParent($value->id);
+////        }
+//
+//        $data = Menu::where('parent_id', $parentId)->get();
+//        foreach ($data as $value) {
+//            $this->list .= '<option value="' . $value->id . '">' . $text . $value->name . '</option>';
+//            $this->deleteChildIfDeleteParent($value->id, $text . '-');
+//        }
+//
+//       echo "<pre>";
+//        var_dump($this->list);
+//        die;
+//    }
+
+    public function restore(){
+        Menu::withTrashed()
+            ->restore();
+    }
 
 }

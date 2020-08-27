@@ -71,6 +71,14 @@ class CategoryController extends Controller
     {
         $this->category->find($id)->delete();
         return redirect()->route('categories.index');
+//        $data = $this->recursive->getChild($id);
+//
+//        foreach ($data as $value) {
+//            $this->category->find($value->id)->delete();
+//        }
+//        $this->category->find($id)->delete();
+//
+//        return redirect()->route('categories.index');
     }
 
 }

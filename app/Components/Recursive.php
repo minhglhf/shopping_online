@@ -8,10 +8,12 @@ class Recursive
 {
     private $data;
     private $showCategory = '';
+    private $list = [];
 
     public function __construct($data)
     {
         $this->data = $data;
+        $this->list = [];
     }
 
     public function categoryRecursive($parentId, $id = 0, $text = '')
@@ -30,4 +32,18 @@ class Recursive
 
         return $this->showCategory;
     }
+
+    public function getChild($parentId = 0, $text = '')
+    {
+        $data = Category::where('parent_id', $parentId)->get();
+
+        foreach ($data as $value) {
+            $this->list[] = $value;
+            $this->getChild($value->id, $text . '-');
+        }
+
+        return $this->list;
+    }
+
+
 }
