@@ -26,13 +26,13 @@
                                 <label>Ten Menus</label>
                                 <input type="text" class="form-control"
                                        name="name"
-                                       placeholder="Nhap ten danh muc">
+                                       placeholder="Nhap ten Menus">
                             </div>
 
                             <div class="form-group">
                                 <label>Chon Menu cha</label>
                                 <select class="form-control" name="parent_id">
-                                    <option value="0">chon danh muc cha</option>
+                                    <option value="0">chon Menu cha</option>
                                     {!! $optionHtml !!}
 
                                 </select>
