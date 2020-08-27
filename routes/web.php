@@ -48,6 +48,21 @@ Route::prefix('categories')->group(function () {
     ]);
 });
 
+Route::prefix('menus')->group(function () {
+    Route::get('/', [
+        'as' => 'menus.index',
+        'uses' => 'MenuController@index',
+    ]);
+    Route::get('/create', [
+        'as' => 'menus.create',
+        'uses' => 'MenuController@create',
+    ]);
+    Route::post('/store', [
+        'as' => 'menus.store',
+        'uses' => 'MenuController@store',
+    ]);
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
