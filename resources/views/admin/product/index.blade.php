@@ -20,7 +20,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
-                        <a href="" class="btn btn-success">Add</a>
+                        <a href="{{ route('product.create') }}" class="btn btn-success">Add</a>
                     </div>
                     <div class="col-md-12">
                         <table class="table">
