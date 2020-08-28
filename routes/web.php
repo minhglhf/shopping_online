@@ -83,6 +83,13 @@ Route::prefix('admin')->group(function () {
             'uses' => 'MenuController@setPass',
         ]);
     });
+
+    Route::prefix('product')->group(function () {
+        Route::get('/index', [
+            'as' => 'product.index',
+            'uses' => 'ProductController@index',
+        ]);
+    });
 });
 
 
@@ -93,4 +100,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/', function () {
     return view('auth/login');
-});
+})->middleware('guest');
