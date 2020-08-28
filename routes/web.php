@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/home_page', function () {
     return view('home_page');
-});
+})->name('home_page');
 
 Route::prefix('admin')->group(function () {
     Route::prefix('categories')->group(function () {
@@ -85,7 +85,7 @@ Route::prefix('admin')->group(function () {
     });
 
     Route::prefix('product')->group(function () {
-        Route::get('/index', [
+        Route::get('/', [
             'as' => 'product.index',
             'uses' => 'ProductController@index',
         ]);

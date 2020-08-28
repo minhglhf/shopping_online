@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-    <title>Product</title>
+    <title>Products</title>
 @endsection
 
 {{--@section('sidebar')--}}

@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-    <title>home page</title>
+    <title>Edit Menu</title>
 @endsection
 
 {{--@section('sidebar')--}}

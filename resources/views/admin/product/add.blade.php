@@ -5,7 +5,8 @@
 @endsection
 
 @section('css')
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet"/>
+    <link href="{{ asset('vendors/select2/select2.min.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('admins/product/add/add.css') }}" rel="stylesheet"/>
 @endsection
 
 {{--@section('sidebar')--}}
@@ -20,11 +21,12 @@
     @include('partials.content-header', ['name' => 'Product', 'key' => 'Add'])
 
     <!-- Main content -->
-        <div class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-6">
-                        <form action="" method="post" enctype="multipart/form-data">
+        <form action="" method="post" enctype="multipart/form-data">
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6">
+
                             @csrf
                             <div class="form-group">
                                 <label>Ten San Pham</label>
@@ -42,19 +44,14 @@
 
                             <div class="form-group">
                                 <label>Hinh Anh San Pham</label>
-                                <input type="file" class="form-control"
+                                <input type="file" class="form-control-file"
                                        name="feature_image_path">
                             </div>
 
                             <div class="form-group">
                                 <label>Hinh Anh chi tiet cua san pham</label>
-                                <input type="file" multiple class="form-control"
-                                       name="image_path">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="content">Noi Dung san pham</label>
-                                <textarea class="form-control" id="content" name="content" rows="3"></textarea>
+                                <input type="file" multiple class="form-control-file"
+                                       name="image_path[]">
                             </div>
 
 
@@ -69,35 +66,37 @@
 
                             <div class="form-group">
                                 <label>nhap tags cho san pham</label>
-                                <select class="form-control tags_select" multiple="multiple">
+                                <select name="tags[]" class="form-control tags_select" multiple="multiple">
 
                                 </select>
                             </div>
 
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="content">Noi Dung san pham</label>
+                                <textarea class="form-control tinymce_editor_init" id="content" name="content"
+                                          rows="8"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
                             <button type="submit" class="btn btn-primary">Submit</button>
-                        </form>
+                        </div>
                     </div>
-                </div>
-                <!-- /.row -->
-            </div><!-- /.container-fluid -->
-        </div>
+                    <!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </div>
+        </form>
         <!-- /.content -->
     </div>
+
     <!-- /.content-wrapper -->
 @endsection
 
 @section('js')
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
-    <script>
-        $(function () {
-            $(".tags_select").select2({
-                tags: true,
-                tokenSeparators: [',', ' ']
-            });
-            $(".select2_init").select2({
-                placeholder: "Chon danh muc",
-                allowClear: true
-            })
-        })
-    </script>
+    <script src="{{ asset('vendors/select2/select2.min.js') }}"></script>
+    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+    <script src="{{ asset('admins/product/add/add.js') }}"></script>
 @endsection
