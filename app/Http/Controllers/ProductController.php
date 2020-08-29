@@ -36,4 +36,9 @@ class ProductController extends Controller
         $optionHtml = $recursive->categoryRecursive($parentId);
         return $optionHtml;
     }
+
+    public function store(Request $request){
+        $path = $request->file('feature_image_path')->storeAs(
+            'public/product', $request->feature_image_path->getClientOriginalName());
+    }
 }
