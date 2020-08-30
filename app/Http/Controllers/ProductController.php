@@ -34,7 +34,7 @@ class ProductController extends Controller
         $this->product = $product;
         $this->productImage = $productImage;
         $this->productTag = $productTag;
-        $product->tag = $tag;
+        $this->tag = $tag;
     }
 
     public function index()
@@ -58,7 +58,6 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-
         $productCreate = [
             'name' => $request->name,
             'price' => $request->price,
@@ -85,5 +84,20 @@ class ProductController extends Controller
 
             }
         }
+
+        foreach($request->tags as $tagItem){
+            $tagInstance = $this->tag->firstOrCreate([
+                'name' => $tagItem
+            ]);
+
+            $tagIds[] = $tagInstance->id;
+
+//            $this->productTag->create([
+//                'product_id' => $product->id,
+//                'tag_id' => $tagInstance->id,
+//            ]);
+        }
+        $product->tags()->attach($tagIds);
+
     }
 }
