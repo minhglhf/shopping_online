@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Storage;
 
 use App\Category;
 use App\Components\Recursive;
@@ -8,9 +9,13 @@ use App\Menu;
 use App\Product;
 use Illuminate\Http\Request;
 use App\Components\MenuRecursive;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+use App\Traits\StorageImageTrait;
 
 class ProductController extends Controller
 {
+    use StorageImageTrait;
     private $category;
     private $product;
 
@@ -38,7 +43,9 @@ class ProductController extends Controller
     }
 
     public function store(Request $request){
-        $path = $request->file('feature_image_path')->storeAs(
-            'public/product', $request->feature_image_path->getClientOriginalName());
+        $dataUpload = $this->storageTraitUpload($request, 'feature_image_path', 'product');
+        echo '<pre>';
+        var_dump($dataUpload);
+        die;
     }
 }
