@@ -7,12 +7,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-trait StorageImageTrait{
-    public function storageTraitUpload(Request $request, $fieldName, $folderName){
-        if($request->hasFile($fieldName)){
+trait StorageImageTrait
+{
+    public function storageTraitUpload(Request $request, $fieldName, $folderName)
+    {
+        if ($request->hasFile($fieldName)) {
             $file = $request->$fieldName;
             $fileNameOrigin = $file->getClientOriginalName();
-            $fileNameHash = Str::random(20) . '.'  . $file->getClientOriginalExtension();
+            $fileNameHash = Str::random(20) . '.' . $file->getClientOriginalExtension();
             $filePath = $request->file($fieldName)->storeAs(
                 'public/' . $folderName . '/' . Auth::user()->id, $fileNameHash);
             $data = [
@@ -22,5 +24,18 @@ trait StorageImageTrait{
             return $data;
         }
         return null;
+    }
+
+    public function storageTraitUploadMultiple($file, $folderName)
+    {
+        $fileNameOrigin = $file->getClientOriginalName();
+        $fileNameHash = Str::random(20) . '.' . $file->getClientOriginalExtension();
+        $filePath = $file->storeAs(
+            'public/' . $folderName . '/' . Auth::user()->id, $fileNameHash);
+        $data = [
+            'file_name' => $fileNameOrigin,
+            'file_path' => Storage::url($filePath)
+        ];
+        return $data;
     }
 }
