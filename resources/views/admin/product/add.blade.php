@@ -57,7 +57,7 @@
 
                             <div class="form-group">
                                 <label>Chon Danh Muc</label>
-                                <select class="form-control select2_init" name="parent_id">
+                                <select class="form-control select2_init" name="category_id">
                                     <option value="0">chon danh muc</option>
                                     {!! $optionHtml !!}
 
@@ -75,8 +75,8 @@
 
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="content">Noi Dung san pham</label>
-                                <textarea class="form-control tinymce_editor_init" id="content" name="content"
+                                <label for="contents">Noi Dung san pham</label>
+                                <textarea class="form-control tinymce_editor_init" id="contents" name="contents"
                                           rows="8"></textarea>
                             </div>
                         </div>

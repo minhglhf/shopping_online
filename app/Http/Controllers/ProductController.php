@@ -43,9 +43,22 @@ class ProductController extends Controller
     }
 
     public function store(Request $request){
+        $productCreate = [
+            'name' => $request->name,
+            'price' => $request->price,
+            'content' => $request->contents,
+            'user_id' => Auth::user()->id,
+            'category_id' => $request->category_id,
+
+        ];
         $dataUpload = $this->storageTraitUpload($request, 'feature_image_path', 'product');
-        echo '<pre>';
-        var_dump($dataUpload);
-        die;
+
+        if(!empty($dataUpload)){
+            $productCreate['feature_image_name'] = $dataUpload['file_name'];
+            $productCreate['feature_image_path'] = $dataUpload['file_path'];
+        }
+        $this->product->create($productCreate);
+
+
     }
 }
