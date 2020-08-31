@@ -92,7 +92,7 @@ class ProductController extends Controller
                 }
             }
 
-            if(!empty($request->tags)){
+            if (!empty($request->tags)) {
                 foreach ($request->tags as $tagItem) {
                     $tagInstance = $this->tag->firstOrCreate([
                         'name' => $tagItem
@@ -117,9 +117,69 @@ class ProductController extends Controller
         }
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
         $product = $this->product->find($id);
         $optionHtml = $this->getCategory($product->category_id);
         return view('admin.product.edit', compact('optionHtml', 'product'));
+    }
+
+    public function update($id, Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            $productUpdate = [
+                'name' => $request->name,
+                'price' => $request->price,
+                'content' => $request->contents,
+                'user_id' => Auth::user()->id,
+                'category_id' => $request->category_id,
+
+            ];
+            $dataUpload = $this->storageTraitUpload($request, 'feature_image_path', 'product');
+
+            if (!empty($dataUpload)) {
+                $productUpdate['feature_image_name'] = $dataUpload['file_name'];
+                $productUpdate['feature_image_path'] = $dataUpload['file_path'];
+            }
+            $this->product->find($id)->update($productUpdate);
+            $product = $this->product->find($id);
+
+            if ($request->hasFile('image_path')) {
+                $this->productImage->where('product_id', $id)->delete();
+                foreach ($request->image_path as $fileItem) {
+                    $dataProductImageDetail = $this->storageTraitUploadMultiple($fileItem, 'product');
+                    $product->images()->create([
+                        'image_name' => $dataProductImageDetail['file_name'],
+                        'image_path' => $dataProductImageDetail['file_path'],
+                    ]);
+
+                }
+            }
+
+            if (!empty($request->tags)) {
+                //$this->productTag->where('product_id', $id)->delete();
+                foreach ($request->tags as $tagItem) {
+                    $tagInstance = $this->tag->firstOrCreate([
+                        'name' => $tagItem
+                    ]);
+
+                    $tagIds[] = $tagInstance->id;
+
+//            $this->productTag->create([
+//                'product_id' => $product->id,
+//                'tag_id' => $tagInstance->id,
+//            ]);
+                }
+            }
+
+            $product->tags()->sync($tagIds);
+            DB::commit();
+
+            return redirect()->route('product.index');
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            Log::error('message: ' . $exception->getMessage() . '<br> line:' . $exception->getLine());
+        }
     }
 }

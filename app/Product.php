@@ -23,7 +23,8 @@ class Product extends Model
     }
 
     public function productImages(){
-        return $this->hasMany('App\ProductImage', 'product_id');
+        return $this->hasMany('App\ProductImage', 'product_id' );
     }
+    //A hasMany B(B::class, foreign_key_of_A, local_key_of_A)
 
 }

@@ -101,6 +101,10 @@ Route::prefix('admin')->group(function () {
             'as' => 'product.edit',
             'uses' => 'ProductController@edit',
         ]);
+        Route::post('/update/{id}', [
+            'as' => 'product.update',
+            'uses' => 'ProductController@update',
+        ]);
     });
 });
 
