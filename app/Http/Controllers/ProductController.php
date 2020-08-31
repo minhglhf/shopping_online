@@ -115,6 +115,11 @@ class ProductController extends Controller
             DB::rollBack();
             Log::error('message: ' . $exception->getMessage() . '<br> line:' . $exception->getLine());
         }
+    }
 
+    public function edit($id){
+        $product = $this->product->find($id);
+        $optionHtml = $this->getCategory($product->category_id);
+        return view('admin.product.edit', compact('optionHtml', 'product'));
     }
 }

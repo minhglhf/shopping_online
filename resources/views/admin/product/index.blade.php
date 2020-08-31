@@ -48,9 +48,9 @@
                                     <td>{{ $product->name }}</td>
                                     <td>{{ $product->price }}</td>
                                     <td><img class='thumbnail_image_size' src="{{ $product->feature_image_path }}" alt="uow"></td>
-                                    <td>{{ $product->category->name }}</td>
+                                    <td>{{ optional($product->category)->name }}</td>
                                     <td>
-                                        <a href="" class="btn btn-default">Edit</a>
+                                        <a href="{{ route('product.edit', ['id' => $product->id]) }}" class="btn btn-default">Edit</a>
                                         <a href="" class="btn btn-danger">Delete</a>
                                     </td>
                                 </tr>
@@ -62,7 +62,7 @@
                     </div>
 
                     <div class="col-md-12">
-                        {{--                        {{ $menus->links() }}--}}
+                                                {{ $products->links() }}
                     </div>
 
                 </div>
