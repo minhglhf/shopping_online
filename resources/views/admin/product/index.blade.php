@@ -4,6 +4,12 @@
     <title>Products</title>
 @endsection
 
+@section('css')
+    <link href="{{ asset('admins/product/index/index.css') }}" rel="stylesheet"/>
+@endsection
+
+
+
 {{--@section('sidebar')--}}
 {{--    @parent--}}
 
@@ -36,19 +42,19 @@
                             </thead>
                             <tbody>
 
-                            {{--                            @foreach($menus as $menu)--}}
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>InphoneX</td>
-                                <td>11.400.000</td>
-                                <td><img src="" alt="uow"></td>
-                                <td>Điện thoại</td>
-                                <td>
-                                    <a href="" class="btn btn-default">Edit</a>
-                                    <a href="" class="btn btn-danger">Delete</a>
-                                </td>
-                            </tr>
-                            {{--                            @endforeach--}}
+                            @foreach($products as $product)
+                                <tr>
+                                    <th scope="row">{{ $product->id }}</th>
+                                    <td>{{ $product->name }}</td>
+                                    <td>{{ $product->price }}</td>
+                                    <td><img class='thumbnail_image_size' src="{{ $product->feature_image_path }}" alt="uow"></td>
+                                    <td>{{ $product->category->name }}</td>
+                                    <td>
+                                        <a href="" class="btn btn-default">Edit</a>
+                                        <a href="" class="btn btn-danger">Delete</a>
+                                    </td>
+                                </tr>
+                            @endforeach
 
 
                             </tbody>
@@ -66,6 +72,10 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
+@endsection
+
+@section('js')
+
 @endsection
 
 
