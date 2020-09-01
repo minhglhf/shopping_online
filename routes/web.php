@@ -111,6 +111,22 @@ Route::prefix('admin')->group(function () {
         ]);
 
     });
+
+    Route::prefix('slider')->group(function () {
+        Route::get('/', [
+            'as' => 'slider.index',
+            'uses' => 'SliderController@index',
+        ]);
+        Route::get('/create', [
+            'as' => 'slider.create',
+            'uses' => 'SliderController@create',
+        ]);
+        Route::post('/store', [
+            'as' => 'slider.store',
+            'uses' => 'SliderController@store',
+        ]);
+    });
+
 });
 
 
