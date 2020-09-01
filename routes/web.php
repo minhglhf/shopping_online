@@ -144,6 +144,10 @@ Route::prefix('admin')->group(function () {
             'as' => 'settings.index',
             'uses' => 'SettingController@index',
         ]);
+        Route::get('/create', [
+            'as' => 'settings.create',
+            'uses' => 'SettingController@create',
+        ]);
     });
 
 });
