@@ -20,6 +20,18 @@
     <div class="content-wrapper">
     @include('partials.content-header', ['name' => 'Product', 'key' => 'Add'])
 
+    {{--            <div class="col-md-12">--}}
+    {{--                @if ($errors->any())--}}
+    {{--                    <div class="alert alert-danger">--}}
+    {{--                        <ul>--}}
+    {{--                            @foreach ($errors->all() as $error)--}}
+    {{--                                <li>{{ $error }}</li>--}}
+    {{--                            @endforeach--}}
+    {{--                        </ul>--}}
+    {{--                    </div>--}}
+    {{--                @endif--}}
+    {{--            </div>--}}
+
     <!-- Main content -->
         <form action="{{ route('product.store') }}" method="post" enctype="multipart/form-data">
             <div class="content">
@@ -28,18 +40,27 @@
                         <div class="col-md-6">
 
                             @csrf
-                            <div class="form-group">
+                            <div class="form-group @error('name') is-invalid @enderror">
                                 <label>Ten San Pham</label>
                                 <input type="text" class="form-control"
                                        name="name"
-                                       placeholder="Nhap ten San Pham">
+                                       placeholder="Nhap ten San Pham"
+                                       value="{{old('name')}}">
+                                @error('name')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
 
-                            <div class="form-group">
+
+                            <div class="form-group @error('price') is-invalid @enderror">
                                 <label>Gia San Pham</label>
                                 <input type="text" class="form-control"
                                        name="price"
-                                       placeholder="Nhap gia San Pham">
+                                       placeholder="Nhap gia San Pham"
+                                       value="{{old('price')}}">
+                                @error('price')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="form-group">
@@ -57,11 +78,15 @@
 
                             <div class="form-group">
                                 <label>Chon Danh Muc</label>
-                                <select class="form-control select2_init" name="category_id">
-                                    <option value="0">chon danh muc</option>
+                                <select class="form-control select2_init @error('category_id') is-invalid @enderror"
+                                        name="category_id">
+                                    <option value="">chon danh muc</option>
                                     {!! $optionHtml !!}
 
                                 </select>
+                                @error('category_id')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="form-group">
@@ -76,8 +101,13 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="contents">Noi Dung san pham</label>
-                                <textarea class="form-control tinymce_editor_init" id="contents" name="contents"
-                                          rows="8"></textarea>
+                                <textarea
+                                    class="form-control tinymce_editor_init @error('content') is-invalid @enderror"
+                                    id="contents" name="contents"
+                                    rows="8">{{old('contents')}}</textarea>
+                                @error('contents')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
 

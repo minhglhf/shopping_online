@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductAddRequest;
 use App\ProductImage;
 use App\ProductTag;
 use App\Tag;
@@ -60,7 +61,7 @@ class ProductController extends Controller
         return $optionHtml;
     }
 
-    public function store(Request $request)
+    public function store(ProductAddRequest $request)
     {
         try {
             DB::beginTransaction();
