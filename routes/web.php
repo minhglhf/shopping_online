@@ -105,6 +105,11 @@ Route::prefix('admin')->group(function () {
             'as' => 'product.update',
             'uses' => 'ProductController@update',
         ]);
+        Route::get('/delete/{id}', [
+            'as' => 'product.delete',
+            'uses' => 'ProductController@delete',
+        ]);
+
     });
 });
 
