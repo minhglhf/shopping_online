@@ -10,6 +10,10 @@
 {{--    <p>This is appended to the master sidebar.</p>--}}
 {{--@endsection--}}
 
+@section('css')
+    <link href="{{ asset('admins/slider/index/index.css') }}" rel="stylesheet"/>
+@endsection
+
 @section('content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -35,18 +39,18 @@
                             </thead>
                             <tbody>
 
-{{--                            @foreach($menus as $menu)--}}
+                            @foreach($sliders as $slider)
                                 <tr>
-                                    <th scope="row">1</th>
-                                    <td>Slider1</td>
-                                    <td>this is slider 1</td>
-                                    <td><img src="" alt="picture"></td>
+                                    <th scope="row">{{ $slider->id }}</th>
+                                    <td>{{ $slider->name }}</td>
+                                    <td>{{ $slider->description }}</td>
+                                    <td><img class="thumbnail_image_size" src="{{ $slider->image_path }}" alt="picture"></td>
                                     <td>
-                                        <a href="" class="btn btn-default">Edit</a>
-                                        <a href="" class="btn btn-danger">Delete</a>
+                                        <a href="{{route('slider.edit', ['id' => $slider->id])}}" class="btn btn-default">Edit</a>
+                                        <a data-url="{{route('slider.delete', ['id' => $slider->id])}}" class="btn btn-danger action_delete">Delete</a>
                                     </td>
                                 </tr>
-{{--                            @endforeach--}}
+                            @endforeach
 
 
                             </tbody>
@@ -54,7 +58,7 @@
                     </div>
 
                     <div class="col-md-12">
-{{--                        {{ Slider->links() }}--}}
+                        {{ $sliders->links() }}
                     </div>
 
                 </div>
@@ -64,6 +68,11 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
+@endsection
+
+@section('js')
+    <script src="{{ asset('admins/slider/index/index.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 @endsection
 
 
