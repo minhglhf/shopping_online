@@ -148,6 +148,10 @@ Route::prefix('admin')->group(function () {
             'as' => 'settings.create',
             'uses' => 'SettingController@create',
         ]);
+        Route::post('/store', [
+            'as' => 'settings.store',
+            'uses' => 'SettingController@store',
+        ]);
     });
 
 });
