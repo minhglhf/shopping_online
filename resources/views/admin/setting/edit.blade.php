@@ -20,7 +20,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-6">
-                        <form action="" method="post">
+                        <form action="{{ route('settings.update', $settings->id) }}" method="post">
                             @csrf
                             <div class="form-group">
                                 <label>Config Key</label>

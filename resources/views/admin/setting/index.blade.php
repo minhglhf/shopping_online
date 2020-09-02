@@ -4,6 +4,10 @@
     <title>Settings</title>
 @endsection
 
+@section('css')
+    <link href="{{ asset('admins/product/index/index.css') }}" rel="stylesheet"/>
+@endsection
+
 {{--@section('sidebar')--}}
 {{--    @parent--}}
 
@@ -50,8 +54,10 @@
                                     <td>{{ $setting->config_key }}</td>
                                     <td>{{ $setting->config_value }}</td>
                                     <td>
-                                        <a href="{{ route('settings.edit', ['id' => $setting->id]) . '?type=' . $setting->type }}" class="btn btn-default">Edit</a>
-                                        <a href="" class="btn btn-danger">Delete</a>
+                                        <a href="{{ route('settings.edit', ['id' => $setting->id]) . '?type=' . $setting->type }}"
+                                           class="btn btn-default">Edit</a>
+                                        <a data-url="{{route('settings.delete', ['id' => $setting->id])}}"
+                                           class="btn btn-danger action_delete">Delete</a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -74,5 +80,10 @@
     <!-- /.content-wrapper -->
 @endsection
 
+@section('js')
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="{{ asset('admins/main.js') }}"></script>
+@endsection
 
 
