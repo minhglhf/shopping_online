@@ -28,8 +28,14 @@ class SettingController extends Controller
     public function store(SettingAddRequest $request){
         $this->setting->create([
             'config_key' => $request->config_key,
-            'config_value' => $request->config_value
+            'config_value' => $request->config_value,
+            'type' =>$request->type
         ]);
         return redirect()->route('settings.index');
+    }
+
+    public function edit($id){
+        $settings = $this->setting->find($id);
+        return view('admin.setting.edit', compact('settings'));
     }
 }

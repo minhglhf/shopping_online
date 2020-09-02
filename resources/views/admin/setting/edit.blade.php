@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-    <title>Add Settings</title>
+    <title>Edit Settings</title>
 @endsection
 
 {{--@section('sidebar')--}}
@@ -13,21 +13,21 @@
 @section('content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-    @include('partials.content-header', ['name' => 'Settings', 'key' => 'Add'])
+    @include('partials.content-header', ['name' => 'Settings', 'key' => 'Edit'])
 
     <!-- Main content -->
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-6">
-                        <form action="{{ route('settings.store') .'?type='. request()->type }}" method="post">
+                        <form action="" method="post">
                             @csrf
                             <div class="form-group">
                                 <label>Config Key</label>
                                 <input type="text" class="form-control @error('config_key') is-invalid @enderror"
                                        name="config_key"
                                        placeholder="Nhap config key"
-                                       value="{{old('config_key')}}">
+                                       value="{{  $settings->config_key }}">
                                 @error('config_key')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
@@ -39,7 +39,7 @@
                                     <input type="text" class="form-control @error('config_value') is-invalid @enderror"
                                            name="config_value"
                                            placeholder="Nhap config value"
-                                           value="{{old('config_value')}}">
+                                           value="{{$settings->config_value}}">
                                 </div>
                                 @error('config_value')
                                 <div class="alert alert-danger">{{ $message }}</div>
@@ -52,13 +52,12 @@
                                     <textarea class="form-control @error('config_value') is-invalid @enderror"
                                               name="config_value"
                                               placeholder="Nhap config value"
-                                              rows="5">{{old('config_value')}}</textarea>
+                                              rows="5">{{$settings->config_value}}</textarea>
                                 </div>
                                 @error('config_value')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             @endif
-
 
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>

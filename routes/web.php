@@ -152,6 +152,14 @@ Route::prefix('admin')->group(function () {
             'as' => 'settings.store',
             'uses' => 'SettingController@store',
         ]);
+        Route::get('/edit/{id}', [
+            'as' => 'settings.edit',
+            'uses' => 'SettingController@edit',
+        ]);
+        Route::post('/update/{id}', [
+            'as' => 'settings.update',
+            'uses' => 'SettingController@update',
+        ]);
     });
 
 });
