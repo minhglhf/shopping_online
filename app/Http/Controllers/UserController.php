@@ -63,4 +63,25 @@ class UserController extends Controller
         $rolesOfUser = $user->roles;
         return view('admin.user.edit', compact('roles', 'user', 'rolesOfUser'));
     }
+
+    public function update($id, Request $request){
+        try{
+            DB::beginTransaction();
+            $this->user->find($id)->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->passwood),
+            ]);
+            $user = $this->user->find($id);
+
+            $roleIds = $request->role_id;
+            $user->roles()->sync($roleIds);
+            DB::commit();
+            return redirect()->route('users.index');
+        }
+        catch (\Exception $exception){
+            DB::rollBack();
+            Log::error('message: ' . $exception->getMessage() . 'Line: '. $exception->getLine());
+        }
+    }
 }
