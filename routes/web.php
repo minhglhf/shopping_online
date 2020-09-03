@@ -202,6 +202,10 @@ Route::prefix('admin')->group(function () {
             'as' => 'roles.create',
             'uses' => 'RoleController@create',
         ]);
+        Route::post('/store', [
+            'as' => 'roles.store',
+            'uses' => 'RoleController@store',
+        ]);
     });
 
 });

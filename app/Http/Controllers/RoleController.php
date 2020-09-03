@@ -25,6 +25,16 @@ class RoleController extends Controller
     public function create(){
         $permissionsParents = $this->permission->where('parent_id', 0)->get();
         return view('admin.role.add', compact('permissionsParents'));
+    }
 
+    public function store(Request $request){
+        $role = $this->role->create([
+           'name' => $request->name,
+           'display_name' => $request->display_name,
+        ]);
+
+        $role->permissions()->attach($request->permission_Id);
+
+        return redirect()->route('roles.index');
     }
 }
