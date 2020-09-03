@@ -525,6 +525,7 @@ class ComposerStaticInit0a7dbeff80ba83a6bcf7301a9cc4a9c9
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\MenuController' => __DIR__ . '/../..' . '/app/Http/Controllers/MenuController.php',
         'App\\Http\\Controllers\\ProductController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProductController.php',
+        'App\\Http\\Controllers\\RoleController' => __DIR__ . '/../..' . '/app/Http/Controllers/RoleController.php',
         'App\\Http\\Controllers\\SettingController' => __DIR__ . '/../..' . '/app/Http/Controllers/SettingController.php',
         'App\\Http\\Controllers\\SliderController' => __DIR__ . '/../..' . '/app/Http/Controllers/SliderController.php',
         'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
