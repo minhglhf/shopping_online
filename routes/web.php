@@ -206,6 +206,18 @@ Route::prefix('admin')->group(function () {
             'as' => 'roles.store',
             'uses' => 'RoleController@store',
         ]);
+        Route::get('/edit/{id}', [
+            'as' => 'roles.edit',
+            'uses' => 'RoleController@edit',
+        ]);
+        Route::post('/update/{id}', [
+            'as' => 'roles.update',
+            'uses' => 'RoleController@update',
+        ]);
+        Route::get('/delete/{id}', [
+            'as' => 'roles.delete',
+            'uses' => 'RoleController@delete',
+        ]);
     });
 
 });
