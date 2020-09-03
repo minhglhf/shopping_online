@@ -44,7 +44,7 @@
 
                             <div class="form-group">
                                 <label>Hinh anh</label>
-                                <input type="file" class="form-control-file @error('image_path') is-invalid @enderror"
+                                <input type="password" class="form-control-file @error('image_path') is-invalid @enderror"
                                        name="image_path">
                                 @error('image_path')
                                 <div class="alert alert-danger">{{ $message }}</div>

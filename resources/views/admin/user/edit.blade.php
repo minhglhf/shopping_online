@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-    <title>Add User</title>
+    <title>Edit User</title>
 @endsection
 
 @section('css')
@@ -22,21 +22,21 @@
 @section('content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-    @include('partials.content-header', ['name' => 'User', 'key' => 'Add'])
+    @include('partials.content-header', ['name' => 'User', 'key' => 'Edit'])
 
     <!-- Main content -->
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-6">
-                        <form action="{{ route('users.store') }}" method="post" enctype="multipart/form-data">
+                        <form action="" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
                                 <label>Ten Menus</label>
                                 <input type="text" class="form-control"
                                        name="name"
                                        placeholder="Nhap ten User"
-                                       value="{{old('name')}}">
+                                       value="{{$user->name}}">
                             </div>
 
                             <div class="form-group">
@@ -44,12 +44,12 @@
                                 <input type="text" class="form-control"
                                        name="email"
                                        placeholder="Nhap email"
-                                       value="{{old('email')}}">
+                                       value="{{$user->email}}">
                             </div>
 
                             <div class="form-group">
                                 <label>Password</label>
-                                <input type="text" class="form-control"
+                                <input type="password" class="form-control"
                                        name="password"
                                        placeholder="Nhap password">
                             </div>
@@ -59,7 +59,8 @@
                                 <select name="role_id[]" class="form-control select2_init" multiple>
                                     <option value=""></option>
                                     @foreach($roles as $role)
-                                        <option value="{{$role->id}}">{{$role->name}}</option>
+                                        <option {{ $rolesOfUser->contains('id', $role->id) ? 'selected' : '' }}
+                                         value="{{$role->id}}">{{$role->name}}</option>
                                     @endforeach
 
                                 </select>

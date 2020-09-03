@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -29,17 +30,23 @@ class UserController extends Controller
     }
 
     public function store(Request $request){
-        $user = $this->user->create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->passwood),
-        ]);
+        try{
+            DB::beginTransaction();
+            $user = $this->user->create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->passwood),
+            ]);
 
-        $roleIds = $request->role_id;
-        $user->roles()->attach($roleIds);
-
-        return redirect()->route('users.index');
-
+            $roleIds = $request->role_id;
+            $user->roles()->attach($roleIds);
+            DB::commit();
+            return redirect()->route('users.index');
+        }
+        catch (\Exception $exception){
+            DB::rollBack();
+            Log::error('message: ' . $exception->getMessage() . 'Line: '. $exception->getLine());
+        }
 //        foreach($roleIds as $roleId){
 //            DB::table('role_user')->insert([
 //                'role_id' => $roleId,
@@ -48,5 +55,12 @@ class UserController extends Controller
 //
 //        }
 
+    }
+
+    public function edit($id){
+        $user = $this->user->find($id);
+        $roles = $this->role->all();
+        $rolesOfUser = $user->roles;
+        return view('admin.user.edit', compact('roles', 'user', 'rolesOfUser'));
     }
 }

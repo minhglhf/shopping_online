@@ -179,6 +179,18 @@ Route::prefix('admin')->group(function () {
             'as' => 'users.store',
             'uses' => 'UserController@store',
         ]);
+        Route::get('/edit/{id}', [
+            'as' => 'users.edit',
+            'uses' => 'UserController@edit',
+        ]);
+        Route::post('/update/{id}', [
+            'as' => 'users.update',
+            'uses' => 'UserController@update',
+        ]);
+        Route::get('/delete/{id}', [
+            'as' => 'users.delete',
+            'uses' => 'UserController@delete',
+        ]);
     });
 
 });
