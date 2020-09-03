@@ -14,6 +14,7 @@ class UserController extends Controller
     private $user;
     private $role;
 
+
     public function __construct(User $user, Role $role){
         $this->user = $user;
         $this->role = $role;
@@ -82,6 +83,22 @@ class UserController extends Controller
         catch (\Exception $exception){
             DB::rollBack();
             Log::error('message: ' . $exception->getMessage() . 'Line: '. $exception->getLine());
+        }
+    }
+
+    public function delete($id){
+        try {
+            $this->user->find($id)->delete();
+            return response()->json([
+                'code' => 200,
+                'message' => 'success'
+            ], 200);
+        } catch (\Exception $exception) {
+            Log::error('message: ' . $exception->getMessage() . '<br> line:' . $exception->getLine());
+            return response()->json([
+                'code' => 500,
+                'message' => 'fail'
+            ], 500);
         }
     }
 }
