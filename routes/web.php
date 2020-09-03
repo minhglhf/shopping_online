@@ -175,6 +175,10 @@ Route::prefix('admin')->group(function () {
             'as' => 'users.create',
             'uses' => 'UserController@create',
         ]);
+        Route::post('/store', [
+            'as' => 'users.store',
+            'uses' => 'UserController@store',
+        ]);
     });
 
 });
