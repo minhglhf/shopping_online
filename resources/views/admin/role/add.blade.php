@@ -48,9 +48,10 @@
 
                                 @foreach($permissionsParents as $permissionsParent)
                                     <div class="card border-primary mb-3 mb-3 col-md-12">
-                                        <div class="card-header">
+                                        <div class="card-header" style="background-color:deepskyblue">
                                             <label>
-                                                <input type="checkbox" value="{{ $permissionsParent->id }}">
+                                                <input type="checkbox" value="{{ $permissionsParent->id }}"
+                                                       class="checkbox_wrapper">
                                             </label>
                                             Module {{$permissionsParent->name}}
                                         </div>
@@ -61,7 +62,8 @@
                                                     <h5 class="card-title">
                                                         <label>
                                                             <input type="checkbox" name="permission_Id[]"
-                                                                   value=" {{ $permissionsChild->id }}">
+                                                                   value=" {{ $permissionsChild->id }}"
+                                                                   class="checkbox_children">
                                                         </label>
                                                         {{ $permissionsChild->name }}
                                                     </h5>
@@ -85,6 +87,14 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
+@endsection
+
+@section('js')
+    <script>
+        $('.checkbox_wrapper').on('click', function (){
+            $(this).parents('.card').find('.checkbox_children').prop('checked', $(this).prop('checked'));
+        });
+    </script>
 @endsection
 
 
