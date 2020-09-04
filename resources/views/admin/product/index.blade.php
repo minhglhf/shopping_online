@@ -51,10 +51,17 @@
                                              alt="uow"></td>
                                     <td>{{ optional($product->category)->name }}</td>
                                     <td>
-                                        <a href="{{ route('product.edit', ['id' => $product->id]) }}"
-                                           class="btn btn-default">Edit</a>
-                                        <a data-url="{{ route('product.delete', ['id' => $product->id]) }}"
-                                           href="" class="btn btn-danger action_delete">Delete</a>
+{{--                                        @can('product_edit')--}}
+
+                                            <a href="{{ route('product.edit', ['id' => $product->id]) }}"
+                                               class="btn btn-default">Edit</a>
+
+{{--                                        @endcan--}}
+
+{{--                                        @can('product_edit')--}}
+                                            <a data-url="{{ route('product.delete', ['id' => $product->id]) }}"
+                                               href="" class="btn btn-danger action_delete">Delete</a>
+{{--                                        @endcan--}}
                                     </td>
                                 </tr>
                             @endforeach

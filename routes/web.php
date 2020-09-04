@@ -88,10 +88,12 @@ Route::prefix('admin')->group(function () {
         Route::get('/', [
             'as' => 'product.index',
             'uses' => 'ProductController@index',
+            'middleware' => 'can:product_list'
         ]);
         Route::get('/create', [
             'as' => 'product.create',
             'uses' => 'ProductController@create',
+            'middleware' => 'can:product_add'
         ]);
         Route::post('/store', [
             'as' => 'product.store',
@@ -100,6 +102,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/edit/{id}', [
             'as' => 'product.edit',
             'uses' => 'ProductController@edit',
+            'middleware' => 'can:product_edit,id'
         ]);
         Route::post('/update/{id}', [
             'as' => 'product.update',
@@ -108,8 +111,8 @@ Route::prefix('admin')->group(function () {
         Route::get('/delete/{id}', [
             'as' => 'product.delete',
             'uses' => 'ProductController@delete',
+            'middleware' => 'can:product_delete'
         ]);
-
     });
 
     Route::prefix('slider')->group(function () {
@@ -217,6 +220,17 @@ Route::prefix('admin')->group(function () {
         Route::get('/delete/{id}', [
             'as' => 'roles.delete',
             'uses' => 'RoleController@delete',
+        ]);
+    });
+
+    Route::prefix('permissions')->group(function () {
+        Route::get('/create', [
+            'as' => 'permissions.create',
+            'uses' => 'RoleController@createPermissions',
+        ]);
+        Route::post('/store', [
+            'as' => 'permissions.store',
+            'uses' => 'RoleController@storePermissions',
         ]);
     });
 
